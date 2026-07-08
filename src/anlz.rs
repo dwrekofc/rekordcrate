@@ -186,7 +186,7 @@ pub struct Cue {
     /// Loop status. `4` if this cue is an active loop, `0` otherwise.
     pub status: u32,
     /// Unknown field. Seems to always have the value `0x00100000`.
-    unknown1: u32,
+    pub unknown1: u32,
     /// Somehow used for sorting cues.
     ///
     /// | Value    | Cue    |
@@ -217,21 +217,21 @@ pub struct Cue {
     /// Type of this cue (`2` if this cue is a loop).
     pub cue_type: CueType,
     /// Unknown field. Seems always have the value `0`.
-    unknown2: u8,
+    pub unknown2: u8,
     /// Unknown field. Seems always have the value `0x03E8` (= decimal 1000).
-    unknown3: u16,
+    pub unknown3: u16,
     /// Time in milliseconds after which this cue would occur (at normal playback speed).
     pub time: u32,
     /// Time in milliseconds after which this the loop would jump back to `time` (at normal playback speed).
     pub loop_time: u32,
     /// Unknown field.
-    unknown4: u32,
+    pub unknown4: u32,
     /// Unknown field.
-    unknown5: u32,
+    pub unknown5: u32,
     /// Unknown field.
-    unknown6: u32,
+    pub unknown6: u32,
     /// Unknown field.
-    unknown7: u32,
+    pub unknown7: u32,
 }
 
 /// A length-prefixed wide (UTF-16BE) string.
@@ -354,9 +354,9 @@ pub struct ExtendedCue {
     /// Type of this cue (`2` if this cue is a loop).
     pub cue_type: CueType,
     /// Unknown field. Seems always have the value `0`.
-    unknown1: u8,
+    pub unknown1: u8,
     /// Unknown field. Seems always have the value `0x03E8` (= decimal 1000).
-    unknown2: u16,
+    pub unknown2: u16,
     /// Time in milliseconds after which this cue would occur (at normal playback speed).
     pub time: u32,
     /// Time in milliseconds after which this the loop would jump back to `time` (at normal playback speed).
@@ -366,11 +366,11 @@ pub struct ExtendedCue {
     /// Only used by memory cues, hot cues use a different value (see below).
     pub color: ColorIndex,
     /// Unknown field.
-    unknown3: u8,
+    pub unknown3: u8,
     /// Unknown field.
-    unknown4: u16,
+    pub unknown4: u16,
     /// Unknown field.
-    unknown5: u32,
+    pub unknown5: u32,
     /// Represents the loop size numerator (if this is a quantized loop).
     pub loop_numerator: u16,
     /// Represents the loop size denominator (if this is a quantized loop).
@@ -453,15 +453,15 @@ pub struct ExtendedCue {
     /// associated with this hot cue, the value is `(0, 0, 0)`.
     pub hot_cue_color_rgb: (u8, u8, u8),
     /// Unknown field.
-    unknown6: u32,
+    pub unknown6: u32,
     /// Unknown field.
-    unknown7: u32,
+    pub unknown7: u32,
     /// Unknown field.
-    unknown8: u32,
+    pub unknown8: u32,
     /// Unknown field.
-    unknown9: u32,
+    pub unknown9: u32,
     /// Unknown field.
-    unknown10: u32,
+    pub unknown10: u32,
     /// Trailing unknown bytes after `unknown10` to the end of the entry.
     ///
     /// Per the Kaitai spec, the entry may contain extra data beyond the known fields;
@@ -507,7 +507,7 @@ impl Default for TinyWaveformPreviewColumn {
 #[bw(big, map = |x: &TinyWaveformPreviewColumn| x.into_bytes())]
 pub struct TinyWaveformPreviewColumn {
     #[allow(dead_code)]
-    unused: B4,
+    pub unused: B4,
     /// Height of the Column in pixels.
     pub height: B4,
 }
@@ -521,9 +521,9 @@ pub struct TinyWaveformPreviewColumn {
 #[brw(big)]
 pub struct WaveformColorPreviewColumn {
     /// Unknown field (somehow encodes the "whiteness").
-    unknown1: u8,
+    pub unknown1: u8,
     /// Unknown field (somehow encodes the "whiteness").
-    unknown2: u8,
+    pub unknown2: u8,
     /// Sound energy in the bottom half of the frequency range (<10 KHz).
     pub energy_bottom_half_freq: u8,
     /// Sound energy in the bottom third of the frequency range.
@@ -559,7 +559,7 @@ pub struct WaveformColorDetailColumn {
     pub height: B5,
     /// Unknown field
     #[allow(dead_code)]
-    unknown: B2,
+    pub unknown: B2,
 }
 
 /// Single Column value in a Waveform 3-Band Preview.
@@ -652,7 +652,7 @@ pub struct Phrase {
     pub kind: u16,
     /// Unknown field.
     #[allow(dead_code)]
-    unknown1: u8,
+    pub unknown1: u8,
     /// Flag byte used for numbered variations (in case of the `High` mood).
     ///
     /// See the documentation for details:
@@ -660,7 +660,7 @@ pub struct Phrase {
     pub k1: u8,
     /// Unknown field.
     #[allow(dead_code)]
-    unknown2: u8,
+    pub unknown2: u8,
     /// Flag byte used for numbered variations (in case of the `High` mood).
     ///
     /// See the documentation for details:
@@ -668,7 +668,7 @@ pub struct Phrase {
     pub k2: u8,
     /// Unknown field.
     #[allow(dead_code)]
-    unknown3: u8,
+    pub unknown3: u8,
     /// Flag that determined if only `beat2` is used (0), or if `beat2`, `beat3` and `beat4` are
     /// used (1).
     pub b: u8,
@@ -680,7 +680,7 @@ pub struct Phrase {
     pub beat4: u16,
     /// Unknown field.
     #[allow(dead_code)]
-    unknown4: u8,
+    pub unknown4: u8,
     /// Flag byte used for numbered variations (in case of the `High` mood).
     ///
     /// See the documentation for details:
@@ -688,7 +688,7 @@ pub struct Phrase {
     pub k3: u8,
     /// Unknown field.
     #[allow(dead_code)]
-    unknown5: u8,
+    pub unknown5: u8,
     /// Indicates if there are fill (non-phrase) beats at the end of the phrase.
     pub fill: u8,
     /// Beat number where the fill begins (if `fill` is non-zero).
@@ -767,15 +767,15 @@ pub enum Content {
 #[derive(Debug, PartialEq, Eq)]
 pub struct BeatGrid {
     /// Unknown field.
-    unknown1: u32,
+    pub unknown1: u32,
     /// Unknown field.
     ///
     /// According to [@flesniak](https://github.com/flesniak), this is always `00800000`.
-    unknown2: u32,
+    pub unknown2: u32,
     /// Number of beats in this beatgrid.
     #[br(temp)]
     #[bw(calc = beats.len() as u32)]
-    len_beats: u32,
+    pub len_beats: u32,
     /// Beats in this beatgrid.
     #[br(count = len_beats)]
     pub beats: Vec<Beat>,
@@ -788,13 +788,13 @@ pub struct CueList {
     /// The types of cues (memory or hot) that this list contains.
     pub list_type: CueListType,
     /// Unknown field
-    unknown: u16,
+    pub unknown: u16,
     /// Number of cues.
     #[br(temp)]
     #[bw(calc = cues.len() as u16)]
-    len_cues: u16,
+    pub len_cues: u16,
     /// Unknown field.
-    memory_count: u32,
+    pub memory_count: u32,
     /// Cues
     #[br(count = usize::from(len_cues))]
     pub cues: Vec<Cue>,
@@ -812,10 +812,10 @@ pub struct ExtendedCueList {
     /// Number of cues.
     #[br(temp)]
     #[bw(calc = cues.len() as u16)]
-    len_cues: u16,
+    pub len_cues: u16,
     /// Unknown field
     #[br(assert(unknown == 0))]
-    unknown: u16,
+    pub unknown: u16,
     /// Cues
     #[br(count = usize::from(len_cues))]
     pub cues: Vec<ExtendedCue>,
@@ -830,7 +830,7 @@ pub struct Path {
     #[br(temp)]
     #[br(assert(len_path == header.content_size()))]
     #[bw(calc = ((path.len() as u32) + 1) * 2)]
-    len_path: u32,
+    pub len_path: u32,
     /// Path of the audio file.
     #[br(assert(len_path == header.content_size()))]
     #[br(assert((path.len() as u32 + 1) * 2 == len_path))]
@@ -843,10 +843,10 @@ pub struct Path {
 #[br(import(header: Header))]
 pub struct VBR {
     /// Unknown field.
-    unknown1: u32,
+    pub unknown1: u32,
     /// Unknown data.
     #[br(count = header.content_size())]
-    unknown2: Vec<u8>,
+    pub unknown2: Vec<u8>,
 }
 
 /// Fixed-width monochrome preview of the track waveform.
@@ -858,9 +858,9 @@ pub struct WaveformPreview {
     #[br(temp)]
     #[br(assert(len_preview == header.content_size()))]
     #[bw(calc = data.len() as u32)]
-    len_preview: u32,
+    pub len_preview: u32,
     /// Unknown field (apparently always `0x00100000`)
-    unknown: u32,
+    pub unknown: u32,
     /// Waveform preview column data.
     #[br(count = len_preview)]
     pub data: Vec<WaveformPreviewColumn>,
@@ -875,9 +875,9 @@ pub struct TinyWaveformPreview {
     #[br(temp)]
     #[br(assert(len_preview == header.content_size()))]
     #[bw(calc = data.len() as u32)]
-    len_preview: u32,
+    pub len_preview: u32,
     /// Unknown field (apparently always `0x00100000`)
-    unknown: u32,
+    pub unknown: u32,
     /// Waveform preview column data.
     #[br(count = len_preview)]
     pub data: Vec<TinyWaveformPreviewColumn>,
@@ -894,15 +894,15 @@ pub struct WaveformDetail {
     #[br(temp)]
     #[br(assert(len_entry_bytes == 1))]
     #[bw(calc = 1u32)]
-    len_entry_bytes: u32,
+    pub len_entry_bytes: u32,
     /// Number of entries in this section.
     #[br(temp)]
     #[bw(calc = data.len() as u32)]
     #[br(assert((len_entry_bytes * len_entries)== header.content_size()))]
-    len_entries: u32,
+    pub len_entries: u32,
     /// Unknown field (apparently always `0x00960000`)
     #[br(assert(unknown == 0x00960000))]
-    unknown: u32,
+    pub unknown: u32,
     /// Waveform preview column data.
     ///
     /// Each entry represents one half-frame of audio data, and there are 75 frames per second,
@@ -922,14 +922,14 @@ pub struct WaveformColorPreview {
     #[br(temp)]
     #[br(assert(len_entry_bytes == 6))]
     #[bw(calc = 6u32)]
-    len_entry_bytes: u32,
+    pub len_entry_bytes: u32,
     /// Number of entries in this section.
     #[br(temp)]
     #[bw(calc = data.len() as u32)]
     #[br(assert((len_entry_bytes * len_entries) == header.content_size()))]
-    len_entries: u32,
+    pub len_entries: u32,
     /// Unknown field.
-    unknown: u32,
+    pub unknown: u32,
     /// Waveform preview column data.
     #[br(count = len_entries)]
     pub data: Vec<WaveformColorPreviewColumn>,
@@ -946,14 +946,14 @@ pub struct WaveformColorDetail {
     #[br(temp)]
     #[br(assert(len_entry_bytes == 2))]
     #[bw(calc = 2u32)]
-    len_entry_bytes: u32,
+    pub len_entry_bytes: u32,
     /// Number of entries in this section.
     #[br(temp)]
     #[bw(calc = data.len() as u32)]
     #[br(assert((len_entry_bytes * len_entries) == header.content_size()))]
-    len_entries: u32,
+    pub len_entries: u32,
     /// Unknown field.
-    unknown: u32,
+    pub unknown: u32,
     /// Waveform detail column data.
     ///
     /// Each entry represents one half-frame of audio data, and there are 75 frames per second,
@@ -973,12 +973,12 @@ pub struct Waveform3BandPreview {
     #[br(temp)]
     #[br(assert(len_entry_bytes == 3))]
     #[bw(calc = 3u32)]
-    len_entry_bytes: u32,
+    pub len_entry_bytes: u32,
     /// Number of entries in this section.
     #[br(temp)]
     #[bw(calc = data.len() as u32)]
     #[br(assert((len_entry_bytes * len_entries) == header.content_size()))]
-    len_entries: u32,
+    pub len_entries: u32,
     /// Waveform preview column data.
     #[br(count = len_entries)]
     pub data: Vec<Waveform3BandPreviewColumn>,
@@ -995,15 +995,15 @@ pub struct Waveform3BandDetail {
     #[br(temp)]
     #[br(assert(len_entry_bytes == 3))]
     #[bw(calc = 3u32)]
-    len_entry_bytes: u32,
+    pub len_entry_bytes: u32,
     /// Number of entries in this section.
     #[br(temp)]
     #[bw(calc = data.len() as u32)]
     #[br(assert((len_entry_bytes * len_entries) == header.content_size()))]
-    len_entries: u32,
+    pub len_entries: u32,
     /// Unknown field (apparently always `0x00960000`)
     #[br(assert(unknown == 0x00960000))]
-    unknown: u32,
+    pub unknown: u32,
     /// Waveform detail column data.
     ///
     /// Each entry represents one half-frame of audio data, and there are 75 frames per second,
@@ -1023,22 +1023,22 @@ pub struct SongStructure {
     #[br(temp)]
     #[br(assert(len_entry_bytes == 24))]
     #[bw(calc = 24u32)]
-    len_entry_bytes: u32,
+    pub len_entry_bytes: u32,
     /// Number of entries in this section.
     #[br(temp)]
     #[br(assert((len_entry_bytes * (len_entries as u32)) == header.content_size()))]
     #[bw(calc = data.phrases.len() as u16)]
-    len_entries: u16,
+    pub len_entries: u16,
     /// Indicates if the remaining parts of the song structure section are encrypted.
     ///
     /// This is a virtual field and not actually present in the file.
     #[br(restore_position, map = |raw_mood: [u8; 2]| SongStructureData::check_if_encrypted(raw_mood, len_entries))]
     #[bw(ignore)]
-    is_encrypted: bool,
+    pub is_encrypted: bool,
     /// Song structure data.
     #[br(args(is_encrypted, len_entries), parse_with = SongStructureData::read_encrypted)]
     #[bw(args(*is_encrypted, len_entries), write_with = SongStructureData::write_encrypted)]
-    data: SongStructureData,
+    pub data: SongStructureData,
 }
 
 /// The data part of the [`SongStructure`] section that may be encrypted (RB6+).
@@ -1052,17 +1052,17 @@ pub struct SongStructureData {
     /// Overall type of phrase structure.
     pub mood: Mood,
     /// Unknown field.
-    unknown1: u32,
+    pub unknown1: u32,
     /// Unknown field.
-    unknown2: u16,
+    pub unknown2: u16,
     /// Number of the beat at which the last recognized phrase ends.
     pub end_beat: u16,
     /// Unknown field.
-    unknown3: u16,
+    pub unknown3: u16,
     /// Stylistic bank assigned in Lightning Mode.
     pub bank: Bank,
     /// Unknown field.
-    unknown4: u8,
+    pub unknown4: u8,
     /// Phrase entry data.
     #[br(count = usize::from(len_entries))]
     pub phrases: Vec<Phrase>,
@@ -1136,10 +1136,10 @@ impl SongStructureData {
 pub struct Unknown {
     /// Unknown header data.
     #[br(count = header.remaining_size())]
-    header_data: Vec<u8>,
+    pub header_data: Vec<u8>,
     /// Unknown content data.
     #[br(count = header.content_size())]
-    content_data: Vec<u8>,
+    pub content_data: Vec<u8>,
 }
 
 /// ANLZ Section.
